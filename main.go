@@ -1,27 +1,23 @@
 package main
 
 import (
-	"time"
-
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/data/binding"
 	"fyne.io/fyne/v2/widget"
 )
 
 func main() {
 	myApp := app.New()
-	w := myApp.NewWindow("Simple")
+	w := myApp.NewWindow("Two Way")
 
 	str := binding.NewString()
-	str.Set("Initial value")
+	str.Set("Hi!")
 
-	text := widget.NewLabelWithData(str)
-	w.SetContent(text)
-
-	go func() {
-		time.Sleep(time.Second * 2)
-		str.Set("A new string")
-	}()
+	w.SetContent(container.NewVBox(
+		widget.NewLabelWithData(str),
+		widget.NewEntryWithData(str),
+	))
 
 	w.ShowAndRun()
 }
